@@ -1,0 +1,12 @@
+# Remote username Ansible should use
+ansible_user: ubuntu
+
+# AEM version to install
+aem_version: 6.3.0
+
+# Default to Java 8u144
+java_version: 8
+java_subversion: 144
+java_build: "01"
+java_hash: 090f390dda5b47b9b721c7dfaa008135
+jdk_version_detail: "{{ java_version }}u{{java_subversion}}-b{{ java_build }}/{{ java_hash }}"

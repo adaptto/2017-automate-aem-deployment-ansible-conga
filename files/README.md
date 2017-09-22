@@ -1,0 +1,1 @@
+Place the `AEM_6.3_Quickstart.jar` and  `license.properties` files here

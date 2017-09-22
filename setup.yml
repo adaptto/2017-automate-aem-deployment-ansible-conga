@@ -1,0 +1,29 @@
+# Setup & Execute CONGA
+- hosts: localhost
+  roles:
+    - { role: conga-maven,
+        conga_maven_git_repo: "https://github.com/wcm-io/wcm-io-samples.git",
+        conga_maven_root: config-definition }
+
+- hosts: "tag_Environment_adaptTo_{{ conga_environment }}::&tag_Role_aem"
+  become: true
+
+  pre_tasks:
+    # Retrieve CONGA node from EC2 tag
+    - set_fact:
+        conga_node: "{{ ec2_tag_Node }}"
+
+    # Setup CONGA facts for the role aem-cms
+    - conga_facts:
+        conga_role_mapping: aem-cms
+
+    - set_fact:
+        # Set AEM port and path from the aem-cms role configuration
+        # so that the other roles have access to it as well
+        aem_port: "{{ conga_config.quickstart.port }}"
+        aem_home: "{{ conga_config.quickstart.rootPath }}"
+
+  roles:
+    - aem-cms
+    - conga-aem-cms
+    - { role: conga-aem-packages, conga_role_mapping: wcm-io-samples-aem-cms }
