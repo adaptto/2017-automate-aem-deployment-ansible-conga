@@ -27,3 +27,6 @@ npm-debug.log
 *.sublime-*
 *nbactions*.xml
 .temp/
+
+files/*.jar
+files/license.properties
